@@ -1,0 +1,68 @@
+{
+  "name": "blockchain-charity",
+  "version": "1.0.0",
+  "description": "Blockchain-based charity platform with NFT rewards on Polygon",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:donation": "hardhat test test/Donation.test.js",
+    "test:nft": "hardhat test test/DonationNFT.test.js",
+    "test:integration": "hardhat test test/Integration.test.js",
+    "test:coverage": "hardhat coverage",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "deploy:local": "hardhat run scripts/deploy-amoy.js --network localhost",
+    "deploy:amoy": "hardhat run scripts/deploy-amoy.js --network amoy",
+    "deploy:polygon": "hardhat run scripts/deploy-amoy.js --network polygon",
+    "verify": "hardhat verify --network",
+    "node": "hardhat node",
+    "console": "hardhat console",
+    "console:amoy": "hardhat console --network amoy",
+    "balance": "hardhat run scripts/check-balance.js",
+    "balance:amoy": "hardhat run scripts/check-balance.js --network amoy",
+    "interact": "hardhat run scripts/interact.js",
+    "interact:amoy": "hardhat run scripts/interact.js --network amoy",
+    "test:quick": "hardhat run scripts/quick-test.js --network amoy",
+    "clean": "hardhat clean",
+    "size": "hardhat size-contracts"
+  },
+  "keywords": [
+    "blockchain",
+    "charity",
+    "nft",
+    "polygon",
+    "matic",
+    "smart-contracts",
+    "solidity"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": ">=16.0.0",
+    "chai": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.1",
+    "hardhat": "^2.17.1",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.4",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^4.9.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

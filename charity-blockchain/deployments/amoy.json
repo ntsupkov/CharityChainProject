@@ -1,0 +1,17 @@
+{
+  "network": "amoy",
+  "chainId": 80002,
+  "contracts": {
+    "Donation": {
+      "address": "0xB6E8c52C39A89f589bc76af3BD81CFFa313e362b",
+      "deploymentBlock": 23737848
+    },
+    "DonationNFT": {
+      "address": "0xdF9bd60B5A55c5D180d4E558d8F8D13294826952",
+      "deploymentBlock": 23737846
+    }
+  },
+  "treasury": "0xa42C59388804338661A71Ff30A4ec05C7f0fa199",
+  "deployer": "0xa42C59388804338661A71Ff30A4ec05C7f0fa199",
+  "timestamp": "2025-07-10T10:58:45.419Z"
+}
