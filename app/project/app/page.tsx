@@ -7,6 +7,7 @@ import Layout from '@/components/Layout';
 import FundDashboard from '@/components/fund/FundDashboard';
 import DonorDashboard from '@/components/donor/DonorDashboard';
 
+
 export default function Home() {
   const { user } = useAuth();
 
@@ -23,7 +24,9 @@ export default function Home() {
 
   return (
     <Layout>
-      {user.role === 'fund' ? <FundDashboard /> : <DonorDashboard />}
+      <div className="flex flex-col items-center gap-4">
+        {user.role === 'fund' ? <FundDashboard /> : <DonorDashboard />}
+      </div>
     </Layout>
   );
 }

@@ -51,10 +51,10 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
             <Progress value={progress} className="h-2" />
             <div className="flex justify-between text-sm">
               <span className="text-stone-600">
-                {campaign.currentAmount.toFixed(2)} ETH собрано
+                {campaign.currentAmount.toFixed(2)} MATIC собрано
               </span>
               <span className="text-stone-500">
-                из {campaign.targetAmount.toFixed(2)} ETH
+                из {campaign.targetAmount.toFixed(2)} MATIC
               </span>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center space-x-1 text-sm text-stone-500">
               <Target className="h-4 w-4" />
-              <span>Осталось: {remaining.toFixed(2)} ETH</span>
+              <span>Осталось: {remaining.toFixed(2)} MATIC</span>
             </div>
             <div className="flex items-center space-x-1 text-sm text-amber-700">
               <Gift className="h-4 w-4" />

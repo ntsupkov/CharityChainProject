@@ -52,7 +52,6 @@ class UserCRUD(BaseCRUD):
     
     def update_stats(self, user_id: int, projects_supported_cnt: int | None, 
                     total_donated: float | None, nft_cnt: int | None) -> Optional[User]:
-        """Обновление статистики пользователя"""
         updates = {}
         if projects_supported_cnt is not None:
             updates['projects_supported_cnt'] = projects_supported_cnt
@@ -102,7 +101,6 @@ class FundCRUD(BaseCRUD):
     
     def update_stats(self, fund_id: int, collections_created: int | None, 
                     total_raised: float | None) -> Optional[Fund]:
-        """Обновление статистики фонда"""
         updates = {}
         if collections_created is not None:
             updates['collections_created'] = collections_created
@@ -182,11 +180,9 @@ class CollectionCRUD(BaseCRUD):
         return False
     
     def close_collection(self, collection_id: int) -> Optional[Collection]:
-        """Закрытие коллекции"""
         return self.update(collection_id, active=False, closed_at=datetime.utcnow())
     
     def update_raised_amount(self, collection_id: int, amount: float) -> Optional[Collection]:
-        """Обновление собранной суммы"""
         collection = self.get_by_id(collection_id)
         if collection:
             raised = float(getattr(collection, 'raised', 0.0))

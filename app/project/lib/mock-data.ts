@@ -1,136 +1,129 @@
-import { Campaign, User, NFTTemplate, Donation, NFT } from '@/types';
+import { Campaign, NFT, Fund, Donor } from "../types";
 
-export const mockUsers: User[] = [
+export const campaigns: Campaign[] = [
   {
-    id: '1',
-    name: 'Фонд Помощи Животным',
-    email: 'animals@charity.ru',
-    role: 'fund',
-    walletAddress: '0x742d35Cc6634C0532925a3b8D404d56AC3D8F7C8',
-    createdAt: new Date('2024-01-15')
+    id: "1",
+    name: "Помощь животным",
+    description: "Сбор средств для приюта животных.",
+    goal: 10000,
+    collected: 3500,
+    image: new URL('https://gateway.ipfs.chaingpt.org/ipfs/Qmd83dn3wMKLmfnmef85r9TxYXiT9XG39q9XMu3qf5mP9x/1.png').toString(),
+    fundId: "1",
+    beneficiary: "Фонд Доброе Сердце"
   },
   {
-    id: '2',
-    name: 'Алексей Петров',
-    email: 'alex@example.com',
-    role: 'donor',
-    walletAddress: '0x8ba1f109551bD432803012645Hac136c72c9b',
-    createdAt: new Date('2024-01-20')
-  }
+    id: "2",
+    name: "Поддержка детских домов",
+    description: "Сбор средств для детских домов.",
+    goal: 20000,
+    collected: 12000,
+    image: new URL('https://gateway.ipfs.chaingpt.org/ipfs/Qmd83dn3wMKLmfnmef85r9TxYXiT9XG39q9XMu3qf5mP9x/2.png').toString(),
+    fundId: "2",
+    beneficiary: "Фонд Детство"
+  },
+  {
+    id: "3",
+    name: "Экологические проекты",
+    description: "Сбор средств на посадку деревьев.",
+    goal: 15000,
+    collected: 8000,
+    image: new URL('https://gateway.ipfs.chaingpt.org/ipfs/QmUYTxnLjxU1DSAYBYSXBKGfUViu2BWurW4i9PiLABsy36/1.png').toString(),
+    fundId: "3",
+    beneficiary: "Фонд Зеленый Мир"
+  },
+  {
+    id: "4",
+    name: "Помощь пожилым людям",
+    description: "Сбор средств для домов престарелых.",
+    goal: 12000,
+    collected: 4000,
+    image: new URL('https://gateway.ipfs.chaingpt.org/ipfs/QmUYTxnLjxU1DSAYBYSXBKGfUViu2BWurW4i9PiLABsy36/2.png').toString(),
+    fundId: "4",
+    beneficiary: "Фонд Забота"
+  },
+  {
+    id: "5",
+    name: "Поддержка образования",
+    description: "Сбор средств на стипендии студентам.",
+    goal: 18000,
+    collected: 9000,
+    image: new URL('https://gateway.ipfs.chaingpt.org/ipfs/QmUYTxnLjxU1DSAYBYSXBKGfUViu2BWurW4i9PiLABsy36/3.png').toString(),
+    fundId: "5",
+    beneficiary: "Фонд Будущее"
+  },
 ];
 
-export const mockNFTTemplates: NFTTemplate[] = [
+export const nfts: NFT[] = [
   {
-    id: '1',
-    name: 'Пушистый Котёнок',
-    rarity: 'Common',
-    image: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Милый котёнок с голубыми глазами',
-    weight: 40
+    id: "1",
+    name: "Кот-герой",
+    rarity: "Legendary",
+    image: new URL('https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=400').toString(),
+    description: "Легендарный кот, спасший приют.",
+    weight: 5
   },
   {
-    id: '2',
-    name: 'Золотой Кот',
-    rarity: 'Uncommon',
-    image: 'https://images.pexels.com/photos/96938/pexels-photo-96938.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Редкий золотистый кот',
-    weight: 25
+    id: "2",
+    name: "Кот-волшебник",
+    rarity: "Epic",
+    image: new URL('https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=400').toString(),
+    description: "Эпический кот с магическими способностями.",
+    weight: 4
   },
   {
-    id: '3',
-    name: 'Мистический Кот',
-    rarity: 'Rare',
-    image: 'https://images.pexels.com/photos/156934/pexels-photo-156934.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Кот с загадочными глазами',
-    weight: 15
-  },
-  {
-    id: '4',
-    name: 'Королевский Кот',
-    rarity: 'Epic',
-    image: 'https://images.pexels.com/photos/320014/pexels-photo-320014.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Величественный кот в короне',
-    weight: 10
-  },
-  {
-    id: '5',
-    name: 'Легендарный Кот',
-    rarity: 'Legendary',
-    image: 'https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Легендарный кот с магическими способностями',
-    weight: 7
-  },
-  {
-    id: '6',
-    name: 'Мифический Кот',
-    rarity: 'Mythic',
-    image: 'https://images.pexels.com/photos/1543793/pexels-photo-1543793.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Мифический кот из древних легенд',
+    id: "3",
+    name: "Кот-рыцарь",
+    rarity: "Rare",
+    image: new URL('https://images.pexels.com/photos/127028/pexels-photo-127028.jpeg?auto=compress&cs=tinysrgb&w=400').toString(),
+    description: "Редкий кот-защитник.",
     weight: 3
-  }
-];
-
-export const mockCampaigns: Campaign[] = [
-  {
-    id: '1',
-    title: 'Помощь бездомным животным',
-    description: 'Сбор средств на приют для бездомных кошек и собак. Ваши пожертвования помогут обеспечить животных едой, лекарствами и уютным домом.',
-    targetAmount: 10,
-    currentAmount: 3.5,
-    createdBy: '1',
-    createdAt: new Date('2024-01-15'),
-    nftPrompt: 'пушистые коты, нарисованные в стиле импрессионизма',
-    nftCollection: mockNFTTemplates,
-    isActive: true
   },
   {
-    id: '2',
-    title: 'Образование для детей',
-    description: 'Поддержка образовательных программ для детей из малообеспеченных семей. Каждый ETH поможет ребёнку получить качественное образование.',
-    targetAmount: 5,
-    currentAmount: 2.1,
-    createdBy: '1',
-    createdAt: new Date('2024-01-18'),
-    nftPrompt: 'детские книги и игрушки в акварельном стиле',
-    nftCollection: mockNFTTemplates,
-    isActive: true
-  }
-];
-
-export const mockDonations: Donation[] = [
+    id: "4",
+    name: "Кот-учёный",
+    rarity: "Uncommon",
+    image: new URL('https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=400').toString(),
+    description: "Необычный кот-исследователь.",
+    weight: 2
+  },
   {
-    id: '1',
-    donorId: '2',
-    campaignId: '1',
-    amount: 0.1,
-    transactionHash: '0x123abc...',
-    nftsReceived: [],
-    createdAt: new Date('2024-01-22')
-  }
+    id: "5",
+    name: "Кот-друг",
+    rarity: "Common",
+    image: new URL('https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=400').toString(),
+    description: "Обычный, но очень добрый кот.",
+    weight: 1
+  },
 ];
 
-export const getNFTRarityColor = (rarity: string) => {
-  switch (rarity) {
-    case 'Common': return 'bg-stone-100 text-stone-700 border-stone-300';
-    case 'Uncommon': return 'bg-amber-100 text-amber-700 border-amber-300';
-    case 'Rare': return 'bg-yellow-100 text-yellow-700 border-yellow-300';
-    case 'Epic': return 'bg-orange-100 text-orange-700 border-orange-300';
-    case 'Legendary': return 'bg-red-100 text-red-700 border-red-300';
-    case 'Mythic': return 'bg-rose-100 text-rose-700 border-rose-300';
-    default: return 'bg-stone-100 text-stone-700 border-stone-300';
-  }
-};
+export const funds: Fund[] = [
+  {
+    id: "1",
+    name: "Фонд Доброе Сердце",
+    description: "Помощь животным.",
+    logo: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+    website: "https://goodheart.org",
+    wallet: "0x123...abc"
+  },
+  {
+    id: "2",
+    name: "Фонд Детство",
+    description: "Поддержка детских домов.",
+    logo: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+    website: "https://childhood.org",
+    wallet: "0x456...def"
+  },
+];
 
-export const generateRandomNFT = (templates: NFTTemplate[]): NFTTemplate => {
-  const totalWeight = templates.reduce((sum, template) => sum + template.weight, 0);
-  let random = Math.random() * totalWeight;
-  
-  for (const template of templates) {
-    random -= template.weight;
-    if (random <= 0) {
-      return template;
-    }
-  }
-  
-  return templates[0];
-};
+export const donors: Donor[] = [
+  {
+    id: "1",
+    name: "Иван Иванов",
+    wallet: "0xabc...123"
+  },
+  {
+    id: "2",
+    name: "Мария Петрова",
+    wallet: "0xdef...456"
+  },
+];

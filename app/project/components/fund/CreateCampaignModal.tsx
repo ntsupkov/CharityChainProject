@@ -86,7 +86,7 @@ export default function CreateCampaignModal({ isOpen, onClose }: CreateCampaignM
       
       for (let i = 0; i < 3; i++) {
         const generateResponse = await fetch("https://api.chaingpt.org/nft/generate-nft-queue", {
-          method: "POST",
+          mMATICod: "POST",
           headers: {
             "Authorization": "Bearer 2819bbff-d326-449a-9030-6c9c9de97b76",
             "Content-Type": "application/json"
@@ -152,7 +152,7 @@ export default function CreateCampaignModal({ isOpen, onClose }: CreateCampaignM
           myHeaders.append("Authorization", "Bearer 2819bbff-d326-449a-9030-6c9c9de97b76");
           
           const requestOptions = {
-            method: "GET",
+            mMATICod: "GET",
             headers: myHeaders,
             redirect: "follow" as RequestRedirect
           };
@@ -290,7 +290,7 @@ export default function CreateCampaignModal({ isOpen, onClose }: CreateCampaignM
               </div>
               
               <div>
-                <Label htmlFor="targetAmount">Целевая сумма (ETH)</Label>
+                <Label htmlFor="targetAmount">Целевая сумма (MATIC)</Label>
                 <Input
                   id="targetAmount"
                   type="number"

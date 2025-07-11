@@ -50,7 +50,7 @@ export default function DonorDashboard() {
             <Coins className="h-4 w-4 text-amber-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-800">{totalDonated.toFixed(2)} ETH</div>
+            <div className="text-2xl font-bold text-amber-800">{totalDonated.toFixed(2)} MATIC</div>
             <p className="text-xs text-amber-700 mt-1">за всё время</p>
           </CardContent>
         </Card>

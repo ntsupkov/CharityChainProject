@@ -1,50 +1,49 @@
 'use client';
-
+ 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useAuth } from '@/contexts/AuthContext';
 import { Wallet, CheckCircle, AlertCircle, ExternalLink, Copy, Unlink } from 'lucide-react';
-
+import { useWallet } from '@/hooks/useWallet';
+ 
 interface WalletModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
+ 
 export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
-  const { user, connectWallet } = useAuth();
+  const { wallet, connectWallet, disconnectWallet } = useWallet();
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
-
+ 
   const handleConnect = async () => {
     setConnecting(true);
     setError('');
-    
+ 
     try {
       await connectWallet();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка подключения кошелька');
+    } catch (err: any) {
+      setError(err.message || 'Ошибка подключения кошелька');
     } finally {
       setConnecting(false);
     }
   };
-
+ 
   const handleCopyAddress = () => {
-    if (user?.walletAddress) {
-      navigator.clipboard.writeText(user.walletAddress);
+    if (wallet.address) {
+      navigator.clipboard.writeText(wallet.address);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
-
+ 
   const handleDisconnect = () => {
-    // В реальном приложении здесь была бы логика отключения кошелька
-    console.log('Отключаем кошелёк');
+    disconnectWallet();
   };
-
+ 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
@@ -54,10 +53,10 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
             <span>Управление кошельком</span>
           </DialogTitle>
         </DialogHeader>
-        
+ 
         <div className="space-y-6">
-          {user?.walletAddress ? (
-            // Кошелёк подключен
+          {wallet.connected ? (
+            // ✅ Кошелёк подключен
             <div className="space-y-4">
               <Card className="bg-gradient-to-r from-green-50 to-amber-50 border-green-200">
                 <CardHeader className="pb-3">
@@ -71,7 +70,7 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                     <div className="text-sm text-stone-600 mb-1">Адрес кошелька:</div>
                     <div className="flex items-center space-x-2">
                       <div className="flex-1 p-2 bg-white rounded border border-green-200 font-mono text-sm">
-                        {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
+                        {wallet.address?.slice(0, 6)}...{wallet.address?.slice(-4)}
                       </div>
                       <Button
                         onClick={handleCopyAddress}
@@ -83,13 +82,13 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                       </Button>
                     </div>
                   </div>
-                  
+ 
                   <div className="text-xs text-green-700 bg-green-100 p-2 rounded">
-                    Полный адрес: {user.walletAddress}
+                    Полный адрес: {wallet.address}
                   </div>
                 </CardContent>
               </Card>
-
+ 
               <Card className="bg-gradient-to-r from-stone-50 to-neutral-50 border-stone-200">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-stone-800">Информация о сети</CardTitle>
@@ -98,12 +97,12 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-stone-600">Сеть:</span>
                     <Badge className="bg-yellow-100 text-yellow-700 border-yellow-300">
-                      BSC Testnet
+                      {wallet.chainId === 80002 ? 'Polygon Amoy' : `Chain ID: ${wallet.chainId}`}
                     </Badge>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-stone-600">Валюта:</span>
-                    <span className="text-sm font-medium text-stone-800">ETH</span>
+                    <span className="text-sm font-medium text-stone-800">MATIC</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-stone-600">Статус:</span>
@@ -114,15 +113,17 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                   </div>
                 </CardContent>
               </Card>
-
+ 
               <div className="flex space-x-3">
                 <Button
-                  onClick={() => window.open('https://testnet.bscscan.com/address/' + user.walletAddress, '_blank')}
+                  onClick={() =>
+                    window.open(`https://amoy.polygonscan.com/address/${wallet.address}`, '_blank')
+                  }
                   variant="outline"
                   className="flex-1 border-amber-200 text-amber-700 hover:bg-amber-50"
                 >
                   <ExternalLink className="h-4 w-4 mr-2" />
-                  Просмотреть в BSCScan
+                  Просмотреть в PolygonScan
                 </Button>
                 <Button
                   onClick={handleDisconnect}
@@ -135,7 +136,7 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
               </div>
             </div>
           ) : (
-            // Кошелёк не подключен
+            // ❌ Кошелёк не подключен
             <div className="space-y-4">
               <Card className="bg-gradient-to-r from-amber-50 to-stone-50 border-amber-200">
                 <CardContent className="p-6 text-center">
@@ -148,27 +149,7 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                   </p>
                 </CardContent>
               </Card>
-
-              <Card className="bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-200">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-stone-800">Требования</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="flex items-center space-x-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-stone-700">Установлен MetaMask</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-stone-700">Подключение к BSC Testnet</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm">
-                    <AlertCircle className="h-4 w-4 text-amber-600" />
-                    <span className="text-stone-700">Наличие тестовых ETH</span>
-                  </div>
-                </CardContent>
-              </Card>
-
+ 
               {error && (
                 <Card className="bg-orange-50 border-orange-200">
                   <CardContent className="p-4">
@@ -179,7 +160,7 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
                   </CardContent>
                 </Card>
               )}
-
+ 
               <Button
                 onClick={handleConnect}
                 disabled={connecting}

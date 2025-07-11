@@ -12,45 +12,37 @@ export interface User {
 
 export interface Campaign {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  targetAmount: number;
-  currentAmount: number;
-  createdBy: string;
-  createdAt: Date;
-  nftPrompt: string;
-  nftCollection: NFTTemplate[];
-  isActive: boolean;
+  goal: number;
+  collected: number;
+  image: string;
+  fundId: string;
+  beneficiary: string;
 }
 
-export interface NFTTemplate {
+export interface NFT {
   id: string;
   name: string;
-  rarity: NFTRarity;
+  rarity: string;
   image: string;
   description: string;
   weight: number;
 }
 
-export type NFTRarity = 'Common' | 'Uncommon' | 'Rare' | 'Epic' | 'Legendary' | 'Mythic';
-
-export interface NFT {
+export interface Fund {
   id: string;
-  templateId: string;
-  ownerId: string;
-  campaignId: string;
-  mintedAt: Date;
-  transactionHash: string;
+  name: string;
+  description: string;
+  logo: string;
+  website: string;
+  wallet: string;
 }
 
-export interface Donation {
+export interface Donor {
   id: string;
-  donorId: string;
-  campaignId: string;
-  amount: number;
-  transactionHash: string;
-  nftsReceived: NFT[];
-  createdAt: Date;
+  name: string;
+  wallet: string;
 }
 
 export interface AuthContextType {

@@ -10,6 +10,15 @@ __pycache__/
 venv/
 .env
 .env.*
+.idea/
+__pycache__/
+*.pyc
+venv/
+.env
+node_modules/
+dist/
+build/
+
 
 # Node.js
 node_modules/
